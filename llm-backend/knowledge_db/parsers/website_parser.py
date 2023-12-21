@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 from langchain.document_loaders import WebBaseLoader
 
+
 def get_all_links(url):
     try:
         # Send an HTTP request to the URL
@@ -11,18 +12,20 @@ def get_all_links(url):
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
             # Parse the HTML content of the page
-            soup = BeautifulSoup(response.text, 'html.parser')
+            soup = BeautifulSoup(response.text, "html.parser")
 
             # Extract all links from the page
             links = set()  # Using a set to avoid duplicates
-            for a_tag in soup.find_all('a', href=True):
-                link = a_tag['href']
+            for a_tag in soup.find_all("a", href=True):
+                link = a_tag["href"]
 
                 # Make the URL absolute (resolve relative URLs)
                 absolute_link = urljoin(url, link)
 
                 # Remove fragments and query parameters
-                absolute_link = urlparse(absolute_link)._replace(query='', fragment='').geturl()
+                absolute_link = (
+                    urlparse(absolute_link)._replace(query="", fragment="").geturl()
+                )
 
                 # Add the absolute URL to the set
                 links.add(absolute_link)
@@ -35,6 +38,7 @@ def get_all_links(url):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+
 
 def crawl_website(base_url):
     # Get all links from the homepage

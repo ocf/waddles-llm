@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "fine-tuning"
+name = "llm-backend"
 version = "0.1.0"
 description = "Finetuning for OCF LLM"
 authors = ["Aditya Mangalampalli <aditya.mangalampalli@gmail.com>"]

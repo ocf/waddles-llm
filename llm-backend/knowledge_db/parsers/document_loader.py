@@ -1,6 +1,7 @@
 from langchain.document_loaders import UnstructuredPDFLoader
 import os
 
+
 def load_document(directory):
     """
     Load a document from a file.
