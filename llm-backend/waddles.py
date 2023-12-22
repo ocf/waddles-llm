@@ -1,7 +1,7 @@
 from langchain.chat_models import ChatOllama
-from langchain.agents.conversational_chat.base import ConversationalChatAgent
-from langchain.agents import AgentExecutor
-
+from langchain.agents import initialize_agent
+from langchain.memory import ConversationBufferMemory
+from langchain.agents.agent_types import AgentType
 from knowledge_db.agents import create_agent
 from knowledge_db.llm_config.system_message import message
 
@@ -14,24 +14,30 @@ tools = create_agent(
 )
 
 
-# Create the conversational retrieval agent
-prompt = ConversationalChatAgent.create_prompt(
-    system_message=message,
-    tools=tools,
+agent = initialize_agent(
+    tools,
+    model,
+    agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+    memory=ConversationBufferMemory(memory_key="chat_history"),
+    agent_kwargs={"system_message": message},
+    handle_parsing_errors=True,
 )
 
-agent = ConversationalChatAgent(llm=model, tools=tools, prompt=prompt)
 
-agent_executor = AgentExecutor(
-    agent=agent,
-    tools=tools,
-    verbose=True,
-    return_intermediate_steps=True,
-)
+# Initialize the agent as shown in the previous examples
+nullInput = agent.invoke({"input": message.content})
 
-# Run the agent
-result = agent_executor({"input": "hi, im Aditya, and I wanted to ask how to print at the OCF."})
-print(result)
+while True:
+    # Get user input
+    user_input = input("User: ")
 
+    # Check if the user wants to exit the conversation
+    if user_input.lower() == "exit":
+        print("Exiting conversation.")
+        break
 
+    # Pass the user input to the agent and get the response
+    response = agent.invoke({"input": user_input})
 
+    # Print the response
+    print(f"Chatbot: {response['output']}")

@@ -16,7 +16,7 @@ def create_agent(llm, **kwargs):
 
     tool = create_retriever_tool(
         retriever,
-        "search OCF account and printing issues",
-        "Searches and returns documents regarding technical issues with the computers in the OCF lab",
+        "search OCF and Open Computing Facility account and printing issues",
+        "OCF related matters",
     )
     return [tool]
