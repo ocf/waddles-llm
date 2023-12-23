@@ -44,8 +44,7 @@ def get_all_links(url):
 
 def crawl_website(base_url):
     # Construct the pickle file path
-    pickle_file_path = os.path.join("/Users/aditya/Programming/ocf-llm/llm-backend/sources/websites/", "linkmap.pickle")
-
+    pickle_file_path = os.path.join(os.getcwd(),"sources/websites/", "linkmap.pickle")
     # Check if the pickle file exists
     try:
         with open(pickle_file_path, "rb") as file:

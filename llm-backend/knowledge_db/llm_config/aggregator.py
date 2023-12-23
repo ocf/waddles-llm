@@ -3,35 +3,51 @@ from langchain.embeddings import OllamaEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.retrievers.multi_query import MultiQueryRetriever
 import os
-import pickle
 from knowledge_db.parsers.document_loader import load_document
 from knowledge_db.parsers.website_parser import crawl_website
 
 
-def load_and_split(**kwargs):
-    # Load the document
-    documents = load_document(kwargs["directory"])
+def load_and_split(retrain=False, **kwargs):
+    db_dir = os.path.join(os.getcwd(), "knowledge_db/", "database/")
+    # check if a directory is empty
+    if not os.listdir(db_dir) or retrain:
+        # Load the document
+        documents = load_document(kwargs["directory"])
 
-    # Crawl the website
-    websites = crawl_website(kwargs["website"])
+        # Crawl the website
+        websites = crawl_website(kwargs["website"])
 
-    # add all the documents and websites together
-    sources = documents + websites
+        # add all the documents and websites together
+        sources = documents + websites
 
-    # Split the documents into chunks
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=50)
-    child_chunks = text_splitter.split_documents(sources)
-    print("Split documents into chunks.")
+        # Split the documents into chunks
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=50)
+        child_chunks = text_splitter.split_documents(sources)
+        print("[SPLIT] Split documents into " + str(len(child_chunks)) + " chunks.")
+    else:
+        print("[SPLIT] Not splitting as vectorstore pre-generated.")
+        child_chunks = None
     return child_chunks
 
 
-def store(splits):
+def store(splits, retrain=False):
     # Embed the text splits
-    print(len(splits))
-    vectorstore = Chroma.from_documents(
-        documents=splits, embedding=OllamaEmbeddings(model="starling-lm")
-    )
-    print('Vectorstore generated.')
+    db_dir = os.path.join(os.getcwd(), "knowledge_db/", "database/")
+    vectorstore = None
+    # check if a directory is empty
+    if not os.listdir(db_dir) or retrain:
+        vectorstore = Chroma.from_documents(
+            documents=splits,
+            embedding=OllamaEmbeddings(model="starling-lm"),
+            persist_directory=db_dir,
+        )
+        print("[V_DB] Vectorstore generated.")
+    else:
+        vectorstore = Chroma(
+            persist_directory=db_dir,
+            embedding_function=OllamaEmbeddings(model="starling-lm"),
+        )
+        print("[V_DB] Vectorstore loaded from disc.")
     return vectorstore
 
 
