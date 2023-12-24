@@ -10,7 +10,7 @@ while True:
     if userInput == "exit":
         break
     response = requests.post(
-        "http://localhost:8000/waddles/invoke",
+        "http://0.0.0.0:8000/waddles/invoke",
         json={"input": {"input": get_prompt_template(userInput)}},
     )
     print("Chat: " + response.json()["output"]["output"])

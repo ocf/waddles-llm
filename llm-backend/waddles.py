@@ -25,6 +25,8 @@ agent = initialize_agent(
 )
 
 
+print("[MODEL] Model Intialized")
+
 # Initialize the agent as shown in the previous examples
 contextInput = agent.invoke({"input": get_prompt_template(message.content)})
 
@@ -45,4 +47,4 @@ add_routes(
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

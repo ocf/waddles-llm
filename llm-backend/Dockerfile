@@ -1,5 +1,7 @@
 FROM nvidia/cuda:12.3.1-devel-ubuntu22.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 WORKDIR /app
 
 COPY . /app/
@@ -26,9 +28,12 @@ RUN cd .. && curl -sSL https://install.python-poetry.org | python3.9 - && curl h
 
 ENV PATH="/root/.local/bin:$PATH"
 
-
 # Install dependencies
 RUN poetry install --no-root
 
+EXPOSE 8000
+
+RUN chmod +x /app/start_services.sh
+
 # Run the app
-CMD ["poetry", "run", "python3.9", "waddles.py"]
+CMD ["/app/start_services.sh"]
