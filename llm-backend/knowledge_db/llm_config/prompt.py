@@ -3,6 +3,11 @@ from langchain.prompts import PromptTemplate
 
 
 def get_prompt_template(msg):
+    '''
+    A method to retrieve the formatted prompt that performs best with Starling-LM
+    :param msg: A string containing the message to be formatted (string)
+    :return: A string containing the formatted prompt (str)
+    '''
     template = "GPT4 Correct User: {instruction}<|end_of_turn|>GPT4 Correct Assistant: "
     prompt = PromptTemplate(template=template, input_variables=["instruction"])
     formatted_prompt = prompt.format(instruction=msg)

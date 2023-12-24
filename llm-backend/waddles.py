@@ -15,7 +15,7 @@ tools = create_agent(
     model, directory="./sources/", website="https://www.ocf.berkeley.edu"
 )
 
-
+# Initialize the agent with respective memory settings
 agent = initialize_agent(
     tools,
     model,
@@ -36,6 +36,7 @@ app = FastAPI(
     description="Waddles using AI as an API",
 )
 
+# Add the API routes to invoke the LLM
 add_routes(
     app,
     agent,  # your model
@@ -43,7 +44,7 @@ add_routes(
     enabled_endpoints=["invoke"],  # the endpoints to enable
 )
 
-
+# Main module to hose the API
 if __name__ == "__main__":
     import uvicorn
 

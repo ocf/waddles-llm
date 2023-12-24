@@ -8,6 +8,8 @@ The project composes of two components with different tech stacks:
 
 * [`llm-backend`](./llm-backend/README.md) represents the backend that lives on HPC
 
+These two components talk to each other using a RESTful API, an example can be found [here](./llm-backend/example/server_test.py). However, there is a caveat that the input to the model needs to be passed using the format specified [here](./llm-backend/knowledge_db/llm_config/prompt.py) in `get_prompt_template()`.
+
 * [`llm-frontend`](./llm-frontend/README.md) represents the application frontend that lives on the desktops
 
 ## Contributing

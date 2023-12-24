@@ -5,6 +5,8 @@ import os
 def load_document(directory):
     """
     Load a document from a file.
+    :param directory: A string containing the directory to load from (string)
+    :return: A list of documents (list)
     """
     fileList = []
     for root, dirs, files in os.walk(directory):
