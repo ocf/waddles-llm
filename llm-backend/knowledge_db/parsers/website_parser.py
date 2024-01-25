@@ -7,11 +7,11 @@ from langchain.document_loaders import WebBaseLoader
 
 
 def get_all_links(url):
-    '''
+    """
     A method to scrape all the links and return a list of links
     :param url: A string containing the url to scrape from (string)
     :return: A list of links (list)
-    '''
+    """
     try:
         # Send an HTTP request to the URL
         response = requests.get(url)
@@ -48,13 +48,13 @@ def get_all_links(url):
 
 
 def crawl_website(base_url):
-    '''
+    """
     A method to crawl a website and all its subsites and store them to a pickle file
     :param base_url: A string containing the base url to crawl from (string)
     :return: A list of documents (list)
-    '''
+    """
     # Construct the pickle file path
-    pickle_file_path = os.path.join(os.getcwd(),"sources/websites/", "linkmap.pickle")
+    pickle_file_path = os.path.join(os.getcwd(), "sources/websites/", "linkmap.pickle")
     # Check if the pickle file exists
     try:
         with open(pickle_file_path, "rb") as file:
@@ -77,7 +77,6 @@ def crawl_website(base_url):
                 subpage_links = get_all_links(subpage_url)
                 if subpage_links:
                     links.extend(subpage_links)
-
 
         # If the element doesn't start with "httos://www.ocf.berkeley.edu" or "http://ocf.io", or "https://github.com/ocf/" remove it
         links = [

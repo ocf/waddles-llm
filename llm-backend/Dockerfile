@@ -13,6 +13,10 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     wget \
+    ffmpeg \ 
+    libsm6 \ 
+    libxext6 \ 
+    libgl1 \
     software-properties-common
 
 # Add python3.9 repository
