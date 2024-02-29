@@ -52,14 +52,14 @@ def store(splits, retrain=False):
     if not os.listdir(db_dir) or retrain:
         vectorstore = Chroma.from_documents(
             documents=splits,
-            embedding=OllamaEmbeddings(model="starling-lm"),
+            embedding=OllamaEmbeddings(model="qwen:14b"),
             persist_directory=db_dir,
         )
         print("[V_DB] Vectorstore generated.")
     else:
         vectorstore = Chroma(
             persist_directory=db_dir,
-            embedding_function=OllamaEmbeddings(model="starling-lm"),
+            embedding_function=OllamaEmbeddings(model="qwen:14b"),
         )
         print("[V_DB] Vectorstore loaded from disc.")
     return vectorstore

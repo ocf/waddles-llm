@@ -8,11 +8,12 @@ from fastapi import FastAPI
 from langserve import add_routes
 
 # Load the model
-model = ChatOllama(model="starling-lm")
+model = ChatOllama(model="qwen:14b")
+retrieverModel = ChatOllama(model="qwen:1.8b")
 
 # Create the agent
 tools = create_agent(
-    model, directory="./sources/", website="https://www.ocf.berkeley.edu"
+    retrieverModel, directory="./sources/", website="https://www.ocf.berkeley.edu"
 )
 
 # Initialize the agent with respective memory settings
@@ -29,6 +30,18 @@ print("[MODEL] Model Intialized")
 
 # Initialize the agent as shown in the previous examples
 contextInput = agent.invoke({"input": get_prompt_template(message.content)})
+
+# Create a conversation loop for people to try out:
+contextInput = agent.invoke({"input": "What is your name and purpose?"})
+print("Waddles: ", contextInput["output"])
+
+# Sample code for a Model loop without server
+# while True:
+#     user_input = input("You: ")
+#     contextInput = agent.invoke({"input": user_input})
+#     print("Waddles: ", contextInput["output"])
+#     if user_input == "exit":
+#         break
 
 app = FastAPI(
     title="Waddles on the Web",

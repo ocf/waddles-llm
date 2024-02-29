@@ -13,10 +13,20 @@ sleep 7
 echo "[BACKEND] Ollama backend initialized!"
 
 # Verbosity stating the model is being pulled
-echo "[BACKEND] Pulling model ..."
+echo "[BACKEND] Pulling main model ..."
 
-# Pull the starling-lm model file
-ollama pull starling-lm && echo "[BACKEND] Model pulled!" || echo "[BACKEND] Model pull failed!"
+# Pull the qwen:14b model file
+ollama pull qwen:14b && echo "[BACKEND] Main Model pulled!" || echo "[BACKEND] Main Model pull failed!"
+
+# Verbosity that retriever model is being pulled
+echo "[BACKEND] Pulling retriever model ..."
+
+# Pull the qwen:1.8b model file
+ollama pull qwen:1.8b && echo "[BACKEND] Retriever Model pulled!" || echo "[BACKEND] Retriever Model pull failed!"
+
+# Create the database directory if it doesn't exist
+echo "[BACKEND] Creating database directory"
+mkdir -p knowledge_db/database
 
 # Run the poetry command to start the backend
 echo "[BACKEND] Starting server ..."
