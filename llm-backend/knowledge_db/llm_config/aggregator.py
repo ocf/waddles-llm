@@ -3,7 +3,7 @@ from langchain.embeddings import OllamaEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.retrievers.multi_query import MultiQueryRetriever
 import os
-from knowledge_db.parsers.document_loader import load_document
+from knowledge_db.parsers.document_loader import load_directory
 from knowledge_db.parsers.website_parser import crawl_website
 
 
@@ -18,7 +18,7 @@ def load_and_split(retrain=False, **kwargs):
     # check if a directory is empty
     if not os.listdir(db_dir) or retrain:
         # Load the document
-        documents = load_document(kwargs["directory"])
+        documents = load_directory(kwargs["directory"])
 
         # Crawl the website
         websites = crawl_website(kwargs["website"])
@@ -28,7 +28,7 @@ def load_and_split(retrain=False, **kwargs):
 
         # Split the documents into chunks
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1024, chunk_overlap=50
+            chunk_size=2048, chunk_overlap=256
         )
         child_chunks = text_splitter.split_documents(sources)
         print("[SPLIT] Split documents into " + str(len(child_chunks)) + " chunks.")
@@ -52,14 +52,14 @@ def store(splits, retrain=False):
     if not os.listdir(db_dir) or retrain:
         vectorstore = Chroma.from_documents(
             documents=splits,
-            embedding=OllamaEmbeddings(model="qwen:14b"),
+            embedding=OllamaEmbeddings(model="mixtral"),
             persist_directory=db_dir,
         )
         print("[V_DB] Vectorstore generated.")
     else:
         vectorstore = Chroma(
             persist_directory=db_dir,
-            embedding_function=OllamaEmbeddings(model="qwen:14b"),
+            embedding_function=OllamaEmbeddings(model="mixtral"),
         )
         print("[V_DB] Vectorstore loaded from disc.")
     return vectorstore

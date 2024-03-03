@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from langserve import add_routes
 
 # Load the model
-model = ChatOllama(model="qwen:14b")
+model = ChatOllama(model="mixtral")
 retrieverModel = ChatOllama(model="qwen:1.8b")
 
 # Create the agent
@@ -36,29 +36,29 @@ contextInput = agent.invoke({"input": "What is your name and purpose?"})
 print("Waddles: ", contextInput["output"])
 
 # Sample code for a Model loop without server
-# while True:
-#     user_input = input("You: ")
-#     contextInput = agent.invoke({"input": user_input})
-#     print("Waddles: ", contextInput["output"])
-#     if user_input == "exit":
-#         break
+while True:
+    user_input = input("You: ")
+    contextInput = agent.invoke({"input": user_input})
+    print("Waddles: ", contextInput["output"])
+    if user_input == "exit":
+        break
 
-app = FastAPI(
-    title="Waddles on the Web",
-    version="0.1a",
-    description="Waddles using AI as an API",
-)
+# app = FastAPI(
+#     title="Waddles on the Web",
+#     version="0.1a",
+#     description="Waddles using AI as an API",
+# )
 
-# Add the API routes to invoke the LLM
-add_routes(
-    app,
-    agent,  # your model
-    path="/waddles",  # the path where your model will be served
-    enabled_endpoints=["invoke"],  # the endpoints to enable
-)
+# # Add the API routes to invoke the LLM
+# add_routes(
+#     app,
+#     agent,  # your model
+#     path="/waddles",  # the path where your model will be served
+#     enabled_endpoints=["invoke"],  # the endpoints to enable
+# )
 
-# Main module to hose the API
-if __name__ == "__main__":
-    import uvicorn
+# # Main module to hose the API
+# if __name__ == "__main__":
+#     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+#     uvicorn.run(app, host="0.0.0.0", port=8000)

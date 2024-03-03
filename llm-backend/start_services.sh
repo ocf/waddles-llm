@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start ollama serve in the background
-ollama serve &
+ollama serve > /dev/null 2>&1 &
 
 # Verbosity stating server is initializing
 echo "[BACKEND] Ollama backend initializing ..."
@@ -15,8 +15,8 @@ echo "[BACKEND] Ollama backend initialized!"
 # Verbosity stating the model is being pulled
 echo "[BACKEND] Pulling main model ..."
 
-# Pull the qwen:14b model file
-ollama pull qwen:14b && echo "[BACKEND] Main Model pulled!" || echo "[BACKEND] Main Model pull failed!"
+# Pull the Mixtral8x7b model file
+ollama pull mixtral && echo "[BACKEND] Main Model pulled!" || echo "[BACKEND] Main Model pull failed!"
 
 # Verbosity that retriever model is being pulled
 echo "[BACKEND] Pulling retriever model ..."

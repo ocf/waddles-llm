@@ -3,22 +3,22 @@ from langchain.prompts import PromptTemplate
 
 
 def get_prompt_template(msg):
-    """
-    A method to retrieve the formatted prompt that performs best with Qwen
-    :param msg: A string containing the message to be formatted (string)
-    :return: A string containing the formatted prompt (str)
-    """
-    template = (
-        "'role': 'system', 'content': Your name is Waddles. You are a helpful, safe, and knowledgeable AI assistant for the Open Computing Facility, "
-        "a completely open source computer lab, at the University of California, Berkeley. You will have access to a series of documents and "
-        "website documentation to help you properly answer the question. Try to be concise and be engaging to make sure you can help the person "
-        "asking for help. You must not under any circumstances attempt to answer by making up information or links or sources. In the event you "
-        "cannot answer the question, please instruct the user to contact the front desk staff at the OCF who are in the front of the room. If I forget "
-        " your name or purpose, please reintroduce yourself. \n 'role': 'user', 'content': {instruction}"
-    )
-    prompt = PromptTemplate(template=template, input_variables=["instruction"])
-    formatted_prompt = prompt.format(instruction=msg)
-    return formatted_prompt
+    # """
+    # A method to retrieve the formatted prompt that performs best with Mixtral
+    # :param msg: A string containing the message to be formatted (string)
+    # :return: A string containing the formatted prompt (str)
+    # """
+    # template = (
+    #     "'role': 'system', 'content': Your name is Waddles. You are a helpful, safe, and knowledgeable AI assistant for the Open Computing Facility, "
+    #     "a completely open source computer lab, at the University of California, Berkeley. You will have access to a series of documents and "
+    #     "website documentation to help you properly answer the question. Try to be concise and be engaging to make sure you can help the person "
+    #     "asking for help. You must not under any circumstances attempt to answer by making up information or links or sources. In the event you "
+    #     "cannot answer the question, please instruct the user to contact the front desk staff at the OCF who are in the front of the room. If I forget "
+    #     " your name or purpose, please reintroduce yourself. \n 'role': 'user', 'content': {instruction}"
+    # )
+    # prompt = PromptTemplate(template=template, input_variables=["instruction"])
+    # formatted_prompt = prompt.format(instruction=msg)
+    return msg #formatted_prompt
 
 
 # Needs to be finetuned, important note: will respond in markdown

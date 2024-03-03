@@ -1,6 +1,6 @@
 # Waddles AI Backend
 
-This section contains the backend of the 🐧 Waddles AI assistant. It is very much a work in progress with little to no input validation than what ever `langchain` (an absolutely amazing Python package btw) does natively. It is powered by Qwen:14B and Qwen:1.8N, a model released by Alibaba Cloud, and uses a RAG (retrieval-generated-augmentaion) structure to train off data.
+This section contains the backend of the 🐧 Waddles AI assistant. It is very much a work in progress with little to no input validation than what ever `langchain` (an absolutely amazing Python package btw) does natively. It is powered by Mixtral8x7b and Qwen:1.8N, a model released by Alibaba Cloud, and uses a RAG (retrieval-generated-augmentaion) structure to train off data.
 
 ## Development
 The things below are meant for developers and people who are interested/want to contribute to the backend specifically.
@@ -11,7 +11,7 @@ The things below are meant for developers and people who are interested/want to 
 * 🎤 Python Poetry (<https://python-poetry.org/>)
 * 🐳 Docker (<https://www.docker.com/>)
 
-### Getting Started
+### Getting Started Locally
 
 ```bash
 # Clone the repository
@@ -26,13 +26,32 @@ docker run -p 8000:8000 -it --rm $(docker build -q .)
 # Success, hopefully 🤞🏼
 ```
 
+### Getting Started on HPC
+
+```bash
+# Clone the repository
+git clone https://github.com/ocf/ocf-llm.git
+
+# cd into the backend part of the project
+cd ocf-llm/llm-backend
+
+# Build the docker image
+sudo build ./
+
+# Run the docker image
+sudo docker run -p 8000:8000 -it --rm --runtime=nvidia --gpus all [image container ID]
+
+# Success, hopefully 🤞🏼
+```
+
+
 ## Contributing
 
 Feel free to open a PR on anything you think can be fixed or improved.
 
 ## Important Citations
 
-We use the Qwen 1.8 and 14 Billion flavors created by Alibaba Cloud in August of 2023 as the core LLM in this project.
+We use the Qwen 1.8 and Mixtral8x7b created by Alibaba Cloud in August of 2023 and Mistral in December of 2023, respectively as the core LLMs in this project.
 
 ```LaTex
 @article{qwen,
@@ -41,4 +60,6 @@ We use the Qwen 1.8 and 14 Billion flavors created by Alibaba Cloud in August of
   journal={arXiv preprint arXiv:2309.16609},
   year={2023}
 }
+
+
 ```

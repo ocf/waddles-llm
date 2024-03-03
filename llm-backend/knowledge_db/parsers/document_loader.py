@@ -1,4 +1,5 @@
 from langchain.document_loaders import UnstructuredPDFLoader
+from langchain_community.document_loaders import DirectoryLoader
 import os
 
 
@@ -17,3 +18,9 @@ def load_document(directory):
                 documents = pdf_loader.load()
                 fileList.append(documents[0])
     return fileList
+
+
+def load_directory(directory):
+    loader = DirectoryLoader(directory, glob="*.*", use_multithreading=True)
+    docs = loader.load()
+    return docs
