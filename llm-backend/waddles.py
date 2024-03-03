@@ -8,12 +8,14 @@ from fastapi import FastAPI
 from langserve import add_routes
 
 # Load the model
+print("[MODEL] Loading Models")
 model = ChatOllama(model="mixtral")
 retrieverModel = ChatOllama(model="qwen:1.8b")
+print("[MODEL] Models Loaded")
 
 # Create the agent
 tools = create_agent(
-    retrieverModel, directory="./sources/", website="https://www.ocf.berkeley.edu"
+    retrieverModel, directory="./sources/docs", website="https://www.ocf.berkeley.edu"
 )
 
 # Initialize the agent with respective memory settings

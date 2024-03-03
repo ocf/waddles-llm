@@ -90,4 +90,4 @@ def crawl_website(base_url):
         with open(pickle_file_path, "wb") as file:
             pickle.dump(links, file)
 
-        return WebBaseLoader(web_paths=links).load()
+        return WebBaseLoader(web_paths=links).aload()
