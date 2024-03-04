@@ -6,6 +6,8 @@ from knowledge_db.agents import create_agent
 from knowledge_db.llm_config.prompt import get_prompt_template, message
 from fastapi import FastAPI
 from langserve import add_routes
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load the model
 model = ChatOllama(model="starling-lm")
@@ -34,6 +36,14 @@ app = FastAPI(
     title="Waddles on the Web",
     version="0.1a",
     description="Waddles using AI as an API",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Adjust the port if your React app runs on a different one
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 # Add the API routes to invoke the LLM

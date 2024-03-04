@@ -43,3 +43,12 @@ We use the Starling-LM model created by BAIR in November of 2023 as the core LLM
     year = {2023}
 }
 ```
+
+# Joe's (superior) note
+1. Make sure to get Conda/miniconda
+2. Setup through conda: create an environment with conda create --name [name]
+3. "conda activiate [name]" in the llm directory
+4. "conda install poetry"
+5. ./start_service.sh, your server is on!
+6. Open a separate terminal, cd into the llm backend directory, and run python3 server_test.py
+7. Ask a question!
