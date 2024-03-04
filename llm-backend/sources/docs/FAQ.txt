@@ -1,0 +1,8 @@
+Q: How does one create an account for the OCF?
+A: In order to do most things at the OCF involving our lab infrastructure, you need to create an account. You can create an account by either scanning the QR code on any of the available computers or visiting https://www.ocf.berkeley.edu/account/register/ and filling it out with your own username and password and following the directions that way.
+
+Q: How does someone print at the OCF?
+A: In order to print at the OCF, you need to use the OCF computers. You can do this by either emailing yourself the document or uploading it to a cloud service and then logging onto our computers and then printing it out that way. Once you get the document, you should download it to the lab computer and then download it.
+
+Q: What if you need more than 20 sides?
+A: Unfortunately, we can't guarantee more printing than that, but in the event it is an emergency, please contact the front desk staff and they should be able to get you sorted.

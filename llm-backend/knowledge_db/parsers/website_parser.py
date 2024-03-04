@@ -60,7 +60,7 @@ def crawl_website(base_url):
         with open(pickle_file_path, "rb") as file:
             links = pickle.load(file)
             # take the first ten elements of the linkmap
-            links = links[:10]
+            # links = links[:10]
             return WebBaseLoader(web_paths=links).load()
 
     except FileNotFoundError:
@@ -90,4 +90,4 @@ def crawl_website(base_url):
         with open(pickle_file_path, "wb") as file:
             pickle.dump(links, file)
 
-        return WebBaseLoader(web_paths=links).load()
+        return WebBaseLoader(web_paths=links).aload()

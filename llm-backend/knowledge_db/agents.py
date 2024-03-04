@@ -10,12 +10,16 @@ def create_agent(llm, **kwargs):
     :return: tool for LLM
     """
     # Load the document
+    print("[AGENT] Loading and Splitting Data")
     data_splits = load_and_split(
         directory=kwargs["directory"], website=kwargs["website"]
     )
+    print("[AGENT] Data Loaded and Split")
 
     # Embed the text splits
+    print("[AGENT] Creating Vectorstore")
     vectorstore = store(data_splits)
+    print("[AGENT] Vectorstore Created")
 
     # Retrieve the most similar text splits
     retriever = retrieve(llm, vectorstore)
