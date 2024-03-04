@@ -63,3 +63,12 @@ We use the Qwen 1.8 and Mixtral8x7b created by Alibaba Cloud in August of 2023 a
 
 
 ```
+
+# Joe's (superior) note
+1. Make sure to get Conda/miniconda
+2. Setup through conda: create an environment with conda create --name [name]
+3. "conda activiate [name]" in the llm directory
+4. "conda install poetry"
+5. ./start_service.sh, your server is on!
+6. Open a separate terminal, cd into the llm backend directory, and run python3 server_test.py
+7. Ask a question!
