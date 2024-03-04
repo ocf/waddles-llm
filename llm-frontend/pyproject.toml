@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "llm-frontend"
+version = "0.1a"
+description = "Temporary cute frontend"
+authors = ["Aditya Mangalampalli <aditya.mangalampalli@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.31.0"
+pyscript = "^0.2.5"
+arrr = "^1.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
