@@ -6,6 +6,8 @@ from knowledge_db.agents import create_agent
 from knowledge_db.llm_config.prompt import get_prompt_template, message
 from fastapi import FastAPI
 from langserve import add_routes
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load the model
 print("[MODEL] Loading Models")
@@ -36,6 +38,23 @@ contextInput = agent.invoke({"input": get_prompt_template(message.content)})
 # Create a conversation loop for people to try out:
 contextInput = agent.invoke({"input": "What is your name and purpose?"})
 print("Waddles: ", contextInput["output"])
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Adjust the port if your React app runs on a different one
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
+# Add the API routes to invoke the LLM
+add_routes(
+    app,
+    agent,  # your model
+    path="/waddles",  # the path where your model will be served
+    enabled_endpoints=["invoke"],  # the endpoints to enable
+)
 
 # Sample code for a Model loop without server
 while True:
