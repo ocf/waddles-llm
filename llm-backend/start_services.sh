@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start ollama serve in the background
-ollama serve &
+ollama serve > /dev/null 2>&1 &
 
 # Verbosity stating server is initializing
 echo "[BACKEND] Ollama backend initializing ..."

@@ -2,38 +2,44 @@ import './App.css';
 import React, {useState} from 'react';
 
 function App() {
+  console.log("Hello")
+
   const makeApiCall = async (userInput) => {
     try {
-      const response = await fetch(' http://localhost:8000/waddles', {
+      const response = await fetch(' http://localhost:8000/waddles/invoke', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ input: userInput }),
+        body: JSON.stringify({ input: { input: userInput }}),
       });
   
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
-  
+      
       const data = await response.json();
-      console.log("Response from server:", data);
+      const data2 = data.output.output;
+      setOutputValue(data)
+      console.log("Response from server:", data2);
       // Handle the response data (e.g., display it in the UI)
     } catch (error) {
       console.error('Failed to fetch:', error);
     }
   };
   const [inputValue, setInputValue] = useState('');
+  const [outputValue, setOutputValue] = useState('output')
    // Update state based on input
+  
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
-
   // Handle submission
   const handleSubmit = () => {
     // Make the API call here
     makeApiCall(inputValue);
   };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -49,6 +55,9 @@ function App() {
         onChange={handleInputChange}
         />
         <button onClick={handleSubmit}>Submit</button>
+        <p>
+
+        </p>
       </header>
     </div>
   );
