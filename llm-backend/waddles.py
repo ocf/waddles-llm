@@ -40,9 +40,25 @@ contextInput = agent.invoke({"input": "What is your name and purpose?"})
 print("Waddles: ", contextInput["output"])
 
 
+# Sample code for a Model loop without server
+# while True:
+#     user_input = input("You: ")
+#     contextInput = agent.invoke({"input": user_input})
+#     print("Waddles: ", contextInput["output"])
+#     if user_input == "exit":
+#         break
+
+app = FastAPI(
+    title="Waddles on the Web",
+    version="0.1a",
+    description="Waddles using AI as an API",
+)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Adjust the port if your React app runs on a different one
+    allow_origins=[
+        "http://localhost:3000"
+    ],  # Adjust the port if your React app runs on a different one
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
@@ -56,30 +72,8 @@ add_routes(
     enabled_endpoints=["invoke"],  # the endpoints to enable
 )
 
-# Sample code for a Model loop without server
-while True:
-    user_input = input("You: ")
-    contextInput = agent.invoke({"input": user_input})
-    print("Waddles: ", contextInput["output"])
-    if user_input == "exit":
-        break
+# Main module to hose the API
+if __name__ == "__main__":
+    import uvicorn
 
-# app = FastAPI(
-#     title="Waddles on the Web",
-#     version="0.1a",
-#     description="Waddles using AI as an API",
-# )
-
-# # Add the API routes to invoke the LLM
-# add_routes(
-#     app,
-#     agent,  # your model
-#     path="/waddles",  # the path where your model will be served
-#     enabled_endpoints=["invoke"],  # the endpoints to enable
-# )
-
-# # Main module to hose the API
-# if __name__ == "__main__":
-#     import uvicorn
-
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
