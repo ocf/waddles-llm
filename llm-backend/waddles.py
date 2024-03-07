@@ -3,7 +3,7 @@ from langchain.agents import initialize_agent
 from langchain.memory import ConversationBufferMemory
 from langchain.agents.agent_types import AgentType
 from knowledge_db.agents import create_agent
-from knowledge_db.llm_config.prompt import get_prompt_template, message
+from knowledge_db.llm_config.prompt import get_prompt_template, message, LLM
 from fastapi import FastAPI
 from langserve import add_routes
 from fastapi import FastAPI
@@ -11,8 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Load the model
 print("[MODEL] Loading Models")
-model = ChatOllama(model="mixtral")
-retrieverModel = ChatOllama(model="qwen:1.8b")
+model = ChatOllama(model=LLM)
+retrieverModel = ChatOllama(model=LLM)
 print("[MODEL] Models Loaded")
 
 # Create the agent
