@@ -1,7 +1,6 @@
 .conda_config
 __pycache__
 .DS_Store
-database/
 
 # dependencies
 /node_modules
