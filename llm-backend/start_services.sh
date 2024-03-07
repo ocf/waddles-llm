@@ -39,4 +39,4 @@ exit_code=$?
 # exit $exit_code
 
 trap "exit 0" INT TERM
-tail -f /dev/null
+# tail -f /dev/null
