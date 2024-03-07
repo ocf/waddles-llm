@@ -32,14 +32,6 @@ agent = initialize_agent(
 
 print("[MODEL] Model Intialized")
 
-# # Initialize the agent as shown in the previous examples
-# contextInput = agent.invoke({"input": get_prompt_template(message.content)})
-
-# # Create a conversation loop for people to try out:
-# contextInput = agent.invoke({"input": "What is your name and purpose?"})
-# print("Waddles: ", contextInput["output"])
-
-
 # Sample code for a Model loop without server
 # while True:
 #     user_input = input("You: ")
@@ -47,6 +39,13 @@ print("[MODEL] Model Intialized")
 #     print("Waddles: ", contextInput["output"])
 #     if user_input == "exit":
 #         break
+
+# Initialize the agent as shown in the previous examples
+# contextInput = agent.invoke({"input": get_prompt_template(message.content)})
+
+# # Create a conversation loop for people to try out:
+# contextInput = agent.invoke({"input": "What is your name and purpose?"})
+# print("Waddles: ", contextInput["output"])
 
 app = FastAPI(
     title="Waddles on the Web",
