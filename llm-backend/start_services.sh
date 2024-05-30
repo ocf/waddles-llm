@@ -15,8 +15,8 @@ echo "[BACKEND] Ollama backend initialized!"
 # Verbosity stating the model is being pulled
 echo "[BACKEND] Pulling main model ..."
 
-# Pull the Mixtral8x7b model file
-ollama pull mixtral && echo "[BACKEND] Main Model pulled!" || echo "[BACKEND] Main Model pull failed!"
+# Pull the llama3 model file
+ollama pull llama3 && echo "[BACKEND] Main Model pulled!" || echo "[BACKEND] Main Model pull failed!"
 
 # Verbosity that retriever model is being pulled
 echo "[BACKEND] Pulling retriever model ..."
@@ -39,4 +39,4 @@ exit_code=$?
 # exit $exit_code
 
 trap "exit 0" INT TERM
-tail -f /dev/null
+# tail -f /dev/null

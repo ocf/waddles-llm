@@ -3,16 +3,22 @@ from langchain.agents import initialize_agent
 from langchain.memory import ConversationBufferMemory
 from langchain.agents.agent_types import AgentType
 from knowledge_db.agents import create_agent
-from knowledge_db.llm_config.prompt import get_prompt_template, message
+from knowledge_db.llm_config.prompt import (
+    get_prompt_template,
+    message,
+    main_LLM,
+    retriver_LLM,
+)
 from fastapi import FastAPI
 from langserve import add_routes
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 # Load the model
 print("[MODEL] Loading Models")
-model = ChatOllama(model="mixtral")
-retrieverModel = ChatOllama(model="qwen:1.8b")
+model = ChatOllama(model=main_LLM)
+retrieverModel = ChatOllama(model=retriver_LLM)
 print("[MODEL] Models Loaded")
 
 # Create the agent
@@ -32,14 +38,6 @@ agent = initialize_agent(
 
 print("[MODEL] Model Intialized")
 
-# Initialize the agent as shown in the previous examples
-contextInput = agent.invoke({"input": get_prompt_template(message.content)})
-
-# Create a conversation loop for people to try out:
-contextInput = agent.invoke({"input": "What is your name and purpose?"})
-print("Waddles: ", contextInput["output"])
-
-
 # Sample code for a Model loop without server
 # while True:
 #     user_input = input("You: ")
@@ -47,6 +45,13 @@ print("Waddles: ", contextInput["output"])
 #     print("Waddles: ", contextInput["output"])
 #     if user_input == "exit":
 #         break
+
+# Initialize the agent as shown in the previous examples
+contextInput = agent.invoke({"input": get_prompt_template(message.content)})
+
+# Create a conversation loop for people to try out:
+# contextInput = agent.invoke({"input": "What is your name and purpose?"})
+# print("Waddles: ", contextInput["output"])
 
 app = FastAPI(
     title="Waddles on the Web",
@@ -74,6 +79,4 @@ add_routes(
 
 # Main module to hose the API
 if __name__ == "__main__":
-    import uvicorn
-
     uvicorn.run(app, host="0.0.0.0", port=8000)

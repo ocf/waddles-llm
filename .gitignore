@@ -1,7 +1,6 @@
 .conda_config
 __pycache__
 .DS_Store
-database/
 
 # dependencies
 /node_modules
@@ -24,3 +23,6 @@ database/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+llm-frontend/node_modules/
+llm-frontend/build

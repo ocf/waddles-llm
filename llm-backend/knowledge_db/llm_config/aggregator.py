@@ -6,6 +6,7 @@ import os
 from knowledge_db.parsers.document_loader import load_directory
 from knowledge_db.parsers.website_parser import crawl_website
 from tqdm import tqdm
+from knowledge_db.llm_config.prompt import main_LLM as LLM
 
 
 def load_and_split(retrain=False, **kwargs):
@@ -59,7 +60,7 @@ def store(splits, retrain=False):
         if len(splits) < 50:
             vectorstore = Chroma.from_documents(
                 documents=splits,
-                embedding=OllamaEmbeddings(model="mixtral"),
+                embedding=OllamaEmbeddings(model=LLM),
                 persist_directory=db_dir,
             )
             print("[V_DB] Vectorstore of size less than 100 generated.")
@@ -70,7 +71,7 @@ def store(splits, retrain=False):
             first_batch = splits[:BATCH_SIZE]
             vectorstore = Chroma.from_documents(
                 documents=first_batch,
-                embedding=OllamaEmbeddings(model="mixtral"),
+                embedding=OllamaEmbeddings(model=LLM),
                 persist_directory=db_dir,
             )
             # remove the first 50 splits
@@ -80,13 +81,13 @@ def store(splits, retrain=False):
                 next_batch = splits[i : i + BATCH_SIZE]
                 vectorstore.add_documents(
                     documents=next_batch,
-                    embedding=OllamaEmbeddings(model="mixtral"),
+                    embedding=OllamaEmbeddings(model=LLM),
                 )
             print("[V_DB] Vectorstore generated.")
     else:
         vectorstore = Chroma(
             persist_directory=db_dir,
-            embedding_function=OllamaEmbeddings(model="mixtral"),
+            embedding_function=OllamaEmbeddings(model=LLM),
         )
         print("[V_DB] Vectorstore loaded from disc.")
     return vectorstore
