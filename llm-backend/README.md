@@ -1,6 +1,6 @@
 # Waddles AI Backend
 
-This section contains the backend of the 🐧 Waddles AI assistant. It is very much a work in progress with little to no input validation than what ever `langchain` (an absolutely amazing Python package btw) does natively. It is powered by Mixtral8x7b and Qwen:1.8N, a model released by Alibaba Cloud, and uses a RAG (retrieval-generated-augmentaion) structure to train off data.
+This section contains the backend of the 🐧 Waddles AI assistant. It is very much a work in progress with little to no input validation than what ever `langchain` (an absolutely amazing Python package btw) does natively. It is powered by Llama3 -7b, a model released by Alibaba Cloud, and uses a RAG (retrieval-generated-augmentaion) structure to train off data.
 
 ## Development
 The things below are meant for developers and people who are interested/want to contribute to the backend specifically.

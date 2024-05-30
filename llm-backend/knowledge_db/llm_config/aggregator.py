@@ -6,7 +6,7 @@ import os
 from knowledge_db.parsers.document_loader import load_directory
 from knowledge_db.parsers.website_parser import crawl_website
 from tqdm import tqdm
-from knowledge_db.llm_config.prompt import LLM
+from knowledge_db.llm_config.prompt import main_LLM as LLM
 
 
 def load_and_split(retrain=False, **kwargs):

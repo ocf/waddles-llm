@@ -1,7 +1,8 @@
 from langchain_core.messages import SystemMessage
 from langchain.prompts import PromptTemplate
 
-LLM = "qwen:1.8b"
+main_LLM = "llama3"
+retriver_LLM = "qwen:1.8b"
 
 def get_prompt_template(msg):
     # """
